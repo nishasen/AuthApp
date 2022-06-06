@@ -1,0 +1,35 @@
+:root {
+  --primary: #1976D2;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 4rem auto;
+  grid-template-areas: 
+            "nav"
+            "section"  ;
+}
+
+.nav {
+  grid-area: nav;
+  position: fixed;
+}
+
+.section {
+  grid-area: section;
+}
+
+.profile {
+  border-radius: 50%;
+}
+
+.profile-lg {
+  width: 6.5rem;
+  height: 6.5rem;
+}
+
+.profile-md {
+  width: 3.5rem;
+  height: 3.5rem;
+}
