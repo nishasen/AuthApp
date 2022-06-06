@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IconButton, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import './Topnav.css'; 
-import { loggedOut } from '../../Features';
+import { loggedOut, showToast } from '../../Features';
 import { useNavigate } from 'react-router-dom';
 
 const Topnav = () => {
@@ -16,7 +16,10 @@ const Topnav = () => {
         {isLogin && 
           <IconButton sx={{color:"white", border: "2px solid white"}} onClick={()=>{
             dispatch(loggedOut())
-            navigate('/', {replace: true})}}><LogoutIcon /></IconButton>
+            navigate('/', {replace: true})
+            dispatch(showToast({text: "Logged out successfully", severity: "success"}))}}>
+            <LogoutIcon />
+          </IconButton>
         }
     </div>
   )
