@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, IconButton, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 import { Textfield } from '..';
@@ -11,11 +11,14 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoginUser } from '../../Services';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector(state => state.auth);
+  const [password, setPassword] = useState('password');
   return (
     <Formik initialValues = {{
       email: "",
@@ -41,7 +44,16 @@ const LoginForm = () => {
         <form color="primary" className="auth-form" onSubmit={formik.handleSubmit}>
           <Typography variant="h4"> Login</Typography>
           <Textfield label="Email" name="email" type="email"/>
-          <Textfield label="Password" name="password" type="password" />
+          <div className="password-container">
+            <Textfield label="Password" name="password" type={password} />
+            <div className="password-icons">
+              {password==="password" ?
+                <IconButton onClick={()=>setPassword('text')}><VisibilityOffIcon /></IconButton>
+                :
+                <IconButton onClick={()=>setPassword('password')}><VisibilityIcon /></IconButton>
+              }
+            </div>
+          </div>
           <LoadingButton variant="contained" type="submit" endIcon={<LoginIcon />} loading={loading} loadingPosition="end" fullWidth>
             Login
           </LoadingButton>

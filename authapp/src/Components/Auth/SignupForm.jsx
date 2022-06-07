@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Typography, IconButton } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -11,15 +11,17 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { Avatars } from '../../Utilities';
 import { CreateUser } from '../../Services';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
-const url = "https://ik.imagekit.io/ecomdiagonalley/Social/Profile1_InTxuA9Np.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1652369924716";
 const SignupForm = () => {
   const navigate = useNavigate();  
   const dispatch = useDispatch(); 
   const { loading } = useSelector(state => state.auth);
+  const [password, setPassword] = useState('password')
   return (
     <Formik initialValues = {{
-      avatar: url,
+      avatar: Avatars[0].url,
       firstname: "",
       lastname: "",
       email: "",
@@ -62,7 +64,16 @@ const SignupForm = () => {
               <Textfield name="lastname" type="text" label="Lastname"/>
           </div>
           <Textfield name="email" type="email" label="Email"/>
-          <Textfield name="password" type="password" label="Password"/>
+          <div className="password-container">
+            <Textfield label="Password" name="password" type={password} />
+            <div className="password-icons">
+              {password==="password" ?
+                <IconButton onClick={()=>setPassword('text')}><VisibilityOffIcon /></IconButton>
+                :
+                <IconButton onClick={()=>setPassword('password')}><VisibilityIcon /></IconButton>
+              }
+            </div>
+          </div>
           <LoadingButton variant="contained" type="submit" endIcon={<LoginIcon />} loading={loading} loadingPosition="end" fullWidth>Signup</LoadingButton>
           <div className="account-check">Already have an acount? <Link to="/" className="link"><Button size="sm" endIcon={<ArrowForwardIosIcon fontSize="small"/>}>Login</Button></Link></div>
       </Form>)}

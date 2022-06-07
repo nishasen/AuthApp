@@ -37,6 +37,17 @@ input[type="radio"] {
     display: none;
 }
 
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-icons {
+    position: absolute;
+    right: 0;
+    top: 0.5rem;
+}
+
 .avatar:hover, .avatar-focus {
     filter: brightness(100%);
     border: 1.5px solid var(--primary);
